@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: selfbot
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    # No healthCheckPath on purpose: it enables overlapping zero-downtime deploys, and two
+    # instances on one Telegram session make Telegram revoke the session.
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: API_ID
+        sync: false
+      - key: API_HASH
+        sync: false
+      - key: SESSION_STRING
+        sync: false
+      - key: BOT_TOKEN
+        sync: false
+      - key: OWNER_ID
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: STARTUP_DELAY
+        value: "20"
+      - key: KEEPALIVE_SECONDS
+        value: "240"
+      - key: PREFIX
+        value: "."
+      - key: MIN_INTERVAL
+        value: "20"
+      - key: MAX_JOBS
+        value: "40"
